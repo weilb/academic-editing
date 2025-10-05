@@ -91,9 +91,9 @@ const ReviewReport: React.FC<ReviewReportProps> = ({ reviewResult, comparisonRes
     const minorIssues = sortedIssues.filter(i => i.severity === 'minor');
 
     return (
-      <div style={{border: "1px solid red"}}>
-        <Card bordered={false} className="score-card">
-          <div style={{ border: '1px solid red', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+      <div >
+        <Card bordered={false} className="score-card" style={{ marginTop: '30px' }}>
+          <div style={{  display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
             <Text type="secondary" className="score-label">综合评22分</Text>
             <div style={{ display: 'flex', alignItems: 'baseline', gap: 6 }}>
               <span className="score-value" style={{ color: getScoreColor(result.overallScore) }}>
