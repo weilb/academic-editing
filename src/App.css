@@ -1,14 +1,850 @@
+/* 医学期刊风格 - 简洁专业 */
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'Georgia', 'Times New Roman', 'SimSun', serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: #ffffff;
 }
 
-.App {
+/* 主布局 */
+.medical-layout {
   min-height: 100vh;
-  background: #f0f2f5;
+  background: #f5f5f7;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.medical-layout::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image:
+    repeating-linear-gradient(0deg, transparent, transparent 19px, rgba(0, 0, 0, 0.015) 19px, rgba(0, 0, 0, 0.015) 20px),
+    repeating-linear-gradient(90deg, transparent, transparent 19px, rgba(0, 0, 0, 0.015) 19px, rgba(0, 0, 0, 0.015) 20px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.medical-layout::after {
+  content: '';
+  position: fixed;
+  top: -50%;
+  right: -10%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(255, 224, 230, 0.15) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* 顶部导航 */
+.medical-header {
+  background: transparent;
+  border-bottom: none;
+  padding: 0;
+  height: auto;
+  line-height: normal;
+  position: relative;
+  z-index: 10;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.header-content {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 20px 32px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.header-logo {
+  flex-shrink: 0;
+  filter: drop-shadow(0 4px 12px rgba(212, 83, 123, 0.25));
+  transition: all 0.3s ease;
+}
+
+.header-logo:hover {
+  transform: translateY(-2px);
+  filter: drop-shadow(0 6px 16px rgba(212, 83, 123, 0.35));
+}
+
+.header-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.header-title {
+  margin: 0 !important;
+  background: linear-gradient(90deg, #2c3e50 0%, #8b6f7e 70%, #c9889d 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  font-size: 24px;
+  line-height: 1.2;
+}
+
+.header-subtitle {
+  color: #999;
+  font-size: 13px;
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-style: italic;
+  letter-spacing: 0.3px;
+}
+
+/* 内容区域 */
+.medical-content {
+  background: transparent;
+  padding: 10px 10px;
+  min-height: calc(100vh - 180px);
+  position: relative;
+  z-index: 1;
+}
+
+.content-wrapper {
+  max-width: 1400px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.content-wrapper::before {
+  content: '';
+  position: absolute;
+  top: 100px;
+  left: -100px;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(212, 83, 123, 0.06) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.content-wrapper::after {
+  content: '';
+  position: absolute;
+  bottom: 200px;
+  right: -80px;
+  width: 250px;
+  height: 250px;
+  background: radial-gradient(circle, rgba(168, 124, 232, 0.05) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* 自定义Loading */
+.custom-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid #ffe0e6;
+  border-top-color: #d4537b;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.ant-spin-text {
+  color: #d4537b !important;
+}
+
+/* 左侧面板容器 */
+.left-panel-container {
+  background: transparent;
+}
+
+/* 左侧面板 */
+.left-panel {
+  background: #ffffff;
+  border-radius: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  padding: 28px;
+  position: sticky;
+  top: 20px;
+  max-height: calc(100vh - 40px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.06);
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+.left-panel::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+.left-panel:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06), 0 2px 4px rgba(0, 0, 0, 0.08);
+}
+
+.collapse-button {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 10;
+  border-color: #d4537b;
+  color: #d4537b;
+}
+
+.collapse-button:hover {
+  border-color: #c14368 !important;
+  color: #c14368 !important;
+}
+
+.expand-button-wrapper {
+  position: fixed;
+  left: 20px;
+  top: 120px;
+  z-index: 100;
+}
+
+.expand-button {
+  background: #d4537b;
+  border-color: #d4537b;
+  color: white;
+  box-shadow: 0 2px 8px rgba(212, 83, 123, 0.3);
+}
+
+.expand-button:hover {
+  background: #c14368 !important;
+  border-color: #c14368 !important;
+  color: white !important;
+}
+
+/* 分割线 */
+.medical-divider {
+  border-color: #f0f0f0;
+  margin: 16px 0;
+}
+
+/* 论文信息卡片 */
+.paper-info-card {
+  background: linear-gradient(135deg, #fafbfc 0%, #f8f9fa 100%);
+  padding: 14px 18px;
+  border-radius: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  transition: all 0.2s ease;
+}
+
+.paper-info-card:hover {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
+  transform: translateY(-1px);
+}
+
+.info-label {
+  color: #666;
+  font-size: 13px;
+}
+
+.info-value {
+  color: #d4537b;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+/* 按钮区域 */
+.action-buttons {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.review-button {
+  background: #d4537b;
+  border-color: #d4537b;
+  height: 44px;
+  font-size: 15px;
+  border-radius: 6px;
+  font-weight: 500;
+}
+
+.review-button:hover {
+  background: #c14368 !important;
+  border-color: #c14368 !important;
+}
+
+.reset-button {
+  height: 40px;
+  font-size: 14px;
+  border-radius: 6px;
+  border-color: #d9d9d9;
+  color: #666;
+}
+
+.reset-button:hover {
+  border-color: #d4537b !important;
+  color: #d4537b !important;
+}
+
+/* 结果面板容器 */
+.result-panel-container {
+  background: transparent;
+}
+
+/* 结果面板 */
+.result-panel {
+  background: #ffffff;
+  border-radius: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  padding: 28px;
+  padding-top: 0;
+  min-height: 600px;
+  max-height: calc(100vh - 40px);
+  overflow-y: auto;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.06);
+  position: relative;
+  z-index: 1;
+}
+
+/* 底部 */
+.medical-footer {
+  background: #ffffff;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+  padding: 28px 24px;
+  text-align: center;
+  box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.02);
+}
+
+.footer-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.footer-text {
+  color: #999;
+  font-size: 13px;
+  font-family: Georgia, 'Times New Roman', serif;
+}
+
+/* 模型名称 */
+.model-header {
+  position: sticky;
+  top: 0;
+  background: #ffffff;
+  z-index: 10;
+  padding: 28px 28px 0px 28px;
+  margin: -28px -28px 24px -28px;
+  /* border-bottom: 1px solid rgba(0, 0, 0, 0.06); */
+  transition: box-shadow 0.3s ease;
+}
+
+.model-header.scrolled {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.model-name-header {
+  text-align: center;
+  padding: 16px 20px;
+  background: linear-gradient(135deg, #fafbfc 0%, #ffffff 100%);
+  border-radius: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  position: relative;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  transition: all 0.2s ease;
+}
+
+.model-name-header:hover {
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  transform: translateY(-1px);
+}
+
+.model-name-header::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 3px;
+  background: linear-gradient(90deg, #d4537b 0%, #e8a87c 100%);
+  border-radius: 0 0 3px 3px;
+}
+
+.model-name {
+  margin: 0 !important;
+  color: #2c3e50;
+  font-weight: 500;
+  font-size: 18px;
+  letter-spacing: 0.5px;
+}
+
+/* 报告卡片样式 */
+.score-card,
+.stats-card,
+.issues-card,
+.recommendations-card,
+.comparison-card {
+  margin-bottom: 20px;
+  border: none;
+  background: #fafbfc;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  transition: all 0.2s ease;
+  position: relative;
+  z-index: 1;
+}
+.comparison-card2{
+  margin-top: 50px !important;
+}
+
+.score-card {
+  padding: 12px 20px;
+}
+
+.comparison-card {
+  padding: 18px 20px;
+}
+
+.score-card:hover,
+.stats-card:hover,
+.issues-card:hover,
+.recommendations-card:hover,
+.comparison-card:hover {
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  transform: translateY(-1px);
+  z-index: 2;
+}
+
+.section-title {
+  color: #2c3e50;
+  font-weight: 500;
+  margin-bottom: 0px;
+  font-family: Georgia, 'Times New Roman', serif;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.section-title::before {
+  content: '';
+  width: 4px;
+  height: 20px;
+  background: linear-gradient(180deg, #d4537b 0%, #ffe0e6 100%);
+  border-radius: 2px;
+}
+
+.score-label {
+  font-size: 13px;
+}
+
+.score-value {
+  font-size: 48px;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.score-unit {
+  font-size: 14px;
+}
+
+.score-divider {
+  border-color: #e8e8e8;
+  margin: 10px 0;
+}
+
+.score-summary {
+  color: #666;
+  text-align: center;
+  margin-bottom: 0;
+  line-height: 1.6;
+  font-size: 13px;
+}
+
+/* 统计卡片 */
+.stat-item,
+.stat-box {
+  text-align: center;
+  padding: 16px;
+  border-radius: 8px;
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.stat-box:hover {
+  border-color: #ffe0e6;
+  box-shadow: 0 3px 8px rgba(212, 83, 123, 0.12);
+  transform: translateY(-2px);
+}
+
+.stat-box.critical .stat-number {
+  color: #d4537b;
+}
+
+.stat-box.major .stat-number {
+  color: #e8a87c;
+}
+
+.stat-box.minor .stat-number {
+  color: #85d7ff;
+}
+
+.stat-icon {
+  font-size: 24px;
+  margin-bottom: 8px;
+}
+
+.stat-number {
+  font-size: 24px;
+  font-weight: 500;
+  color: #2c3e50;
+  margin-bottom: 4px;
+}
+
+.stat-label {
+  font-size: 12px;
+}
+
+.score-box {
+  text-align: center;
+  padding: 12px;
+  background: #fafafa;
+  border-radius: 8px;
+}
+
+.summary-box {
+  padding: 18px 20px;
+  background: #ffffff;
+  border-radius: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  transition: all 0.2s ease;
+}
+
+.summary-box:hover {
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  transform: translateY(-1px);
+}
+
+.summary-text {
+  color: #666;
+  margin: 0;
+  line-height: 1.8;
+}
+
+/* 问题卡片 - 医学期刊风格 */
+.issue-item {
+  padding: 20px;
+  background: #ffffff;
+  border-radius: 8px;
+  border-left: 4px solid;
+  border-right: 1px solid rgba(0, 0, 0, 0.04);
+  border-top: 1px solid rgba(0, 0, 0, 0.04);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+  margin-bottom: 16px;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+.issue-item:hover {
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+  transform: translateX(2px);
+}
+
+.issue-item.matched {
+  background: #fffbf8;
+  border: 1px solid #ffe8e8;
+  border-left: 4px solid;
+  box-shadow: 0 2px 4px rgba(212, 83, 123, 0.08);
+}
+
+.issue-item.matched:hover {
+  box-shadow: 0 4px 12px rgba(212, 83, 123, 0.12);
+}
+
+.match-indicator {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px dashed #f0f0f0;
+}
+
+.matched-issue-pair {
+  margin-bottom: 24px;
+}
+
+.issue-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.issue-category {
+  color: #2c3e50;
+  font-size: 15px;
+  font-family: Georgia, 'Times New Roman', serif;
+}
+
+.severity-tag {
+  background: transparent;
+  color: #666;
+  border: 1px solid #d9d9d9;
+  font-size: 12px;
+  padding: 2px 10px;
+  border-radius: 4px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+/* 严重问题 tag */
+.severity-tag.severity-critical {
+  background: linear-gradient(135deg, #ffe0e6 0%, #ffeef2 100%);
+  color: #d4537b;
+  border-color: #ffccd5;
+  font-weight: 600;
+  box-shadow: 0 1px 2px rgba(212, 83, 123, 0.1);
+}
+
+.severity-tag.severity-critical:hover {
+  box-shadow: 0 2px 4px rgba(212, 83, 123, 0.15);
+  transform: translateY(-1px);
+}
+
+/* 重要问题 tag */
+.severity-tag.severity-major {
+  background: linear-gradient(135deg, #fff4e6 0%, #fffaf0 100%);
+  color: #e8a87c;
+  border-color: #ffe4c4;
+  font-weight: 600;
+  box-shadow: 0 1px 2px rgba(232, 168, 124, 0.1);
+}
+
+.severity-tag.severity-major:hover {
+  box-shadow: 0 2px 4px rgba(232, 168, 124, 0.15);
+  transform: translateY(-1px);
+}
+
+/* 轻微问题 tag */
+.severity-tag.severity-minor {
+  background: linear-gradient(135deg, #e6f7ff 0%, #f0faff 100%);
+  color: #40a9ff;
+  border-color: #b3e5ff;
+  font-weight: 500;
+  box-shadow: 0 1px 2px rgba(64, 169, 255, 0.1);
+}
+
+.severity-tag.severity-minor:hover {
+  box-shadow: 0 2px 4px rgba(64, 169, 255, 0.15);
+  transform: translateY(-1px);
+}
+
+.issue-location {
+  font-size: 12px;
+  color: #999;
+  font-style: italic;
+}
+
+.issue-description {
+  color: #666;
+  margin-bottom: 12px;
+  line-height: 1.8;
+  font-size: 14px;
+}
+
+.issue-suggestion-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  background: #fafbfc;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 13px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+.issue-suggestion-toggle:hover {
+  background: #fffbf8;
+  border-color: rgba(212, 83, 123, 0.3);
+  box-shadow: 0 2px 4px rgba(212, 83, 123, 0.08);
+  transform: translateY(-1px);
+}
+
+.issue-suggestion-toggle:active {
+  transform: translateY(0);
+}
+
+.toggle-text {
+  color: #666;
+  font-size: 13px;
+}
+
+.issue-suggestion {
+  margin-top: 12px;
+  padding: 16px;
+  background: #f9f9f9;
+  border-left: 3px solid #d4537b;
+  border-radius: 2px;
+}
+
+.suggestion-content {
+  color: #666;
+  margin: 0;
+  line-height: 1.8;
+  font-size: 13px;
+}
+
+/* 改进建议列表 */
+.recommendations-list {
+  padding-left: 24px;
+  margin: 0;
+}
+
+.recommendation-item {
+  margin-bottom: 12px;
+  line-height: 1.8;
+}
+
+.recommendation-text {
+  color: #666;
+  font-size: 14px;
+}
+
+/* Ant Design 组件样式覆盖 */
+.ant-card {
+  border-radius: 2px;
+  border-color: #f0f0f0;
+}
+
+.ant-upload-drag {
+  border-radius: 10px !important;
+  border: 2px dashed rgba(0, 0, 0, 0.1) !important;
+  background: #fafbfc !important;
+  transition: all 0.3s ease !important;
+}
+
+.ant-upload-drag:hover {
+  border-color: rgba(212, 83, 123, 0.5) !important;
+  background: #fffbf8 !important;
+  box-shadow: 0 2px 8px rgba(212, 83, 123, 0.08) !important;
+}
+
+.custom-upload-dragger .ant-upload {
+  padding: 12px 16px !important;
+}
+
+.upload-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.upload-text {
+  color: #2c3e50;
+  font-size: 14px;
+  font-weight: 500;
+  margin: 0;
+}
+
+.upload-hint {
+  color: #999;
+  font-size: 12px;
+  margin: 0;
+}
+
+.ant-radio-button-wrapper-checked {
+  background: #fff5f7;
+  border-color: #d4537b !important;
+  color: #d4537b;
+}
+
+.ant-radio-button-wrapper-checked:hover {
+  border-color: #c14368 !important;
+  color: #c14368;
+}
+
+.ant-radio-wrapper .ant-radio-checked .ant-radio-inner {
+  border-color: #d4537b !important;
+  background-color: #d4537b !important;
+}
+
+.ant-radio-wrapper .ant-radio-checked .ant-radio-inner:after {
+  background-color: #ffffff;
+}
+
+.ant-radio-wrapper:hover .ant-radio-inner {
+  border-color: #d4537b;
+}
+
+.ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+  color: #d4537b;
+}
+
+.ant-tabs-ink-bar {
+  background: #d4537b;
+}
+
+.ant-collapse-header {
+  background: #fafafa !important;
+}
+
+.ant-statistic-title {
+  color: #666;
+  font-size: 14px;
+}
+
+.ant-statistic-content {
+  font-size: 28px;
+}
+
+/* 按钮悬浮效果 */
+.ant-btn-primary:not(:disabled):hover {
+  background: #c14368 !important;
+  border-color: #c14368 !important;
+}
+
+.ant-btn:not(.ant-btn-primary):not(:disabled):hover {
+  border-color: #d4537b !important;
+  color: #d4537b !important;
+}
+
+/* 响应式 */
+@media (max-width: 992px) {
+  .header-content {
+    padding: 20px 16px;
+  }
+
+  .header-title {
+    font-size: 20px;
+  }
+
+  .medical-content {
+    padding: 10px 10px;
+  }
+
+  .left-panel,
+  .result-panel {
+    padding: 16px;
+    padding-top:0;
+  }
+
+  .expand-button-wrapper {
+    left: 12px;
+    top: 100px;
+  }
 }
 

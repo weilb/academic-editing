@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
-import { Upload, message, Space, Typography, Card } from 'antd';
-import { UploadOutlined, FileTextOutlined } from '@ant-design/icons';
+import { Upload, message, Space, Typography } from 'antd';
 import type { UploadFile } from 'antd/es/upload/interface';
 
-const { Title, Text } = Typography;
+const { Text } = Typography;
 const { Dragger } = Upload;
 
 interface FileUploadProps {
   onFileUploaded: (file: File) => void;
+  wordCount?: number;
 }
 
-const FileUpload: React.FC<FileUploadProps> = ({ onFileUploaded }) => {
+const FileUpload: React.FC<FileUploadProps> = ({ onFileUploaded, wordCount }) => {
   const [fileList, setFileList] = useState<UploadFile[]>([]);
 
   const beforeUpload = (file: File) => {
@@ -41,35 +41,39 @@ const FileUpload: React.FC<FileUploadProps> = ({ onFileUploaded }) => {
   };
 
   return (
-    <Card>
-      <Space direction="vertical" size="large" style={{ width: '100%' }}>
-        <div>
-          <Title level={3}>
-            <FileTextOutlined /> 上传医学论文
-          </Title>
-          <Text type="secondary">
-            支持 PDF、Word (docx/doc) 和 TXT 格式，文件大小不超过 10MB
-          </Text>
+    <Space direction="vertical" size="small" style={{ width: '100%' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 8 }}>
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2H5C4.46957 2 3.96086 2.21071 3.58579 2.58579C3.21071 2.96086 3 3.46957 3 4V16C3 16.5304 3.21071 17.0391 3.58579 17.4142C3.96086 17.7893 4.46957 18 5 18H15C15.5304 18 16.0391 17.7893 16.4142 17.4142C16.7893 17.0391 17 16.5304 17 16V7L12 2Z" stroke="#d4537b" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+          <path d="M12 2V7H17" stroke="#d4537b" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
+        <div style={{ display: 'flex', alignItems: 'baseline', gap: 6 }}>
+          <Text strong style={{ color: '#2c3e50', fontSize: 15 }}>上传论文</Text>
+          {wordCount && wordCount > 0 && (
+            <Text style={{ color: '#d4537b', fontSize: 13, fontWeight: 600 }}>({wordCount} 字)</Text>
+          )}
         </div>
+      </div>
 
-        <Dragger
-          name="file"
-          fileList={fileList}
-          beforeUpload={beforeUpload}
-          onChange={handleChange}
-          accept=".pdf,.doc,.docx,.txt"
-          maxCount={1}
-        >
-          <p className="ant-upload-drag-icon">
-            <UploadOutlined />
-          </p>
-          <p className="ant-upload-text">点击或拖拽文件到此区域上传</p>
-          <p className="ant-upload-hint">
-            上传您的医学论文，系统将自动进行智能审核分析
-          </p>
-        </Dragger>
-      </Space>
-    </Card>
+      <Dragger
+        name="file"
+        fileList={fileList}
+        beforeUpload={beforeUpload}
+        onChange={handleChange}
+        accept=".pdf,.doc,.docx,.txt"
+        maxCount={1}
+        className="custom-upload-dragger"
+      >
+        <div className="upload-content">
+          <svg width="28" height="28" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="20" cy="20" r="19" stroke="#ffe0e6" strokeWidth="2"/>
+            <path d="M20 14V26M14 20H26" stroke="#d4537b" strokeWidth="2" strokeLinecap="round"/>
+          </svg>
+          <Text className="upload-text">点击或拖拽文件到此区域</Text>
+          <Text className="upload-hint">支持 PDF、Word、TXT · 不超过 10MB</Text>
+        </div>
+      </Dragger>
+    </Space>
   );
 };
 

@@ -1,9 +1,5 @@
-import { GoogleGenerativeAI } from '@google/generative-ai';
-
-const API_KEY = 'AIzaSyCcpAgp6T33Mm1rEut8_iPHWYdyujXXpmw';
-
-// 初始化 Gemini API
-const genAI = new GoogleGenerativeAI(API_KEY);
+const API_KEY = 'sk-6a2594384d3346e39aee54525a2f2306';
+const API_URL = 'https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions';
 
 export interface ReviewResult {
   overallScore: number;
@@ -21,11 +17,6 @@ export interface Issue {
 }
 
 export async function reviewPaper(paperContent: string): Promise<ReviewResult> {
-  // 尝试使用 gemini-1.5-pro 或 gemini-2.0-flash-exp
-  const model = genAI.getGenerativeModel({
-    model: 'gemini-2.0-flash-exp'
-  });
-
   const prompt = `
 你是一位专业的医学期刊审稿人。请仔细审核以下医学论文，并提供详细的反馈。
 
@@ -61,9 +52,30 @@ ${paperContent}
 `;
 
   try {
-    const result = await model.generateContent(prompt);
-    const response = await result.response;
-    const text = response.text();
+    const response = await fetch(API_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${API_KEY}`,
+      },
+      body: JSON.stringify({
+        model: 'qwen-max',
+        messages: [
+          {
+            role: 'user',
+            content: prompt
+          }
+        ],
+        temperature: 0.7,
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Qwen API 调用失败: ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    const text = data.choices[0].message.content;
 
     // 提取JSON内容
     const jsonMatch = text.match(/\{[\s\S]*\}/);
@@ -74,16 +86,12 @@ ${paperContent}
 
     throw new Error('无法解析AI响应');
   } catch (error) {
-    console.error('Gemini API调用失败:', error);
+    console.error('Qwen API调用失败:', error);
     throw error;
   }
 }
 
 export async function getSuggestionForIssue(issue: Issue, context: string): Promise<string> {
-  const model = genAI.getGenerativeModel({
-    model: 'gemini-2.0-flash-exp'
-  });
-
   const prompt = `
 作为医学期刊审稿人，针对以下问题提供详细的修改建议和示例：
 
@@ -102,9 +110,30 @@ ${context}
 `;
 
   try {
-    const result = await model.generateContent(prompt);
-    const response = await result.response;
-    return response.text();
+    const response = await fetch(API_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${API_KEY}`,
+      },
+      body: JSON.stringify({
+        model: 'qwen-max',
+        messages: [
+          {
+            role: 'user',
+            content: prompt
+          }
+        ],
+        temperature: 0.7,
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Qwen API 调用失败: ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    return data.choices[0].message.content;
   } catch (error) {
     console.error('获取建议失败:', error);
     throw error;
