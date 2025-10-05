@@ -312,7 +312,7 @@ const ReviewReport: React.FC<ReviewReportProps> = ({ reviewResult, comparisonRes
           <Title level={5} className="section-title">
             问题详情
             <Text type="secondary" style={{ fontSize: 13, fontWeight: 'normal', marginLeft: 12 }}>
-              <LinkOutlined /> 标记为相同问题的项目会高亮显示
+              {/* <LinkOutlined />  */}
             </Text>
           </Title>
 
