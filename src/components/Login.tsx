@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
 import { Form, Input, Button, message, Typography, Space } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import { useNavigate } from 'react-router-dom';
 
 const { Title, Text } = Typography;
 
-interface LoginProps {
-  onLogin: () => void;
-}
-
-const Login: React.FC<LoginProps> = ({ onLogin }) => {
+const Login: React.FC = () => {
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
   const onFinish = async (values: { username: string; password: string }) => {
@@ -18,7 +16,7 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
     setTimeout(() => {
       if (values.username === 'zx' && values.password === '123') {
         message.success('登录成功！');
-        onLogin();
+        navigate('/');
       } else {
         message.error('用户名或密码错误！');
       }

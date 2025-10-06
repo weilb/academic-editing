@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Card, Tag, Typography, Space, Row, Col, Divider } from 'antd';
+import { Card, Typography, Row, Col, Progress, Tag, Collapse, Button, Space, Divider } from 'antd';
 import { ExclamationCircleOutlined, WarningOutlined, InfoCircleOutlined, DownOutlined, UpOutlined, LinkOutlined } from '@ant-design/icons';
 import { Issue, ReviewResult } from '../services/geminiService';
-import { ComparisonResult } from '../App';
+import { ComparisonResult } from './HomePage';
 import { matchIssues, sortIssuesBySeverity } from '../utils/issueMatcher';
 
 const { Title, Text, Paragraph } = Typography;
@@ -264,19 +264,19 @@ const ReviewReport: React.FC<ReviewReportProps> = ({ reviewResult, comparisonRes
               <Row gutter={8}>
                 <Col span={8}>
                   <div className="stat-box critical">
-                    <div className="stat-number">{gemini.issues.filter(i => i.severity === 'critical').length}</div>
+                    <div className="stat-number">{gemini.issues.filter((i: Issue) => i.severity === 'critical').length}</div>
                     <Text type="secondary" className="stat-label">严重</Text>
                   </div>
                 </Col>
                 <Col span={8}>
                   <div className="stat-box major">
-                    <div className="stat-number">{gemini.issues.filter(i => i.severity === 'major').length}</div>
+                    <div className="stat-number">{gemini.issues.filter((i: Issue) => i.severity === 'major').length}</div>
                     <Text type="secondary" className="stat-label">重要</Text>
                   </div>
                 </Col>
                 <Col span={8}>
                   <div className="stat-box minor">
-                    <div className="stat-number">{gemini.issues.filter(i => i.severity === 'minor').length}</div>
+                    <div className="stat-number">{gemini.issues.filter((i: Issue) => i.severity === 'minor').length}</div>
                     <Text type="secondary" className="stat-label">轻微</Text>
                   </div>
                 </Col>
@@ -286,19 +286,19 @@ const ReviewReport: React.FC<ReviewReportProps> = ({ reviewResult, comparisonRes
               <Row gutter={8}>
                 <Col span={8}>
                   <div className="stat-box critical">
-                    <div className="stat-number">{qwen.issues.filter(i => i.severity === 'critical').length}</div>
+                    <div className="stat-number">{qwen.issues.filter((i: Issue) => i.severity === 'critical').length}</div>
                     <Text type="secondary" className="stat-label">严重</Text>
                   </div>
                 </Col>
                 <Col span={8}>
                   <div className="stat-box major">
-                    <div className="stat-number">{qwen.issues.filter(i => i.severity === 'major').length}</div>
+                    <div className="stat-number">{qwen.issues.filter((i: Issue) => i.severity === 'major').length}</div>
                     <Text type="secondary" className="stat-label">重要</Text>
                   </div>
                 </Col>
                 <Col span={8}>
                   <div className="stat-box minor">
-                    <div className="stat-number">{qwen.issues.filter(i => i.severity === 'minor').length}</div>
+                    <div className="stat-number">{qwen.issues.filter((i: Issue) => i.severity === 'minor').length}</div>
                     <Text type="secondary" className="stat-label">轻微</Text>
                   </div>
                 </Col>
