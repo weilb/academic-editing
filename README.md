@@ -1,46 +1,149 @@
-# Getting Started with Create React App
+# Medical Paper Intelligent Review
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+An AI-powered intelligent review system for medical journal papers, supporting multiple AI models and providing professional paper quality assessment and improvement suggestions.
 
-## Available Scripts
+## ✨ Features
 
-In the project directory, you can run:
+- 🤖 **Multi-AI Model Support** - Support for Qwen Max and Gemini 2.0 Flash with comparative analysis
+- 📄 **Multiple Format Support** - Support for PDF, Word (docx/doc), and TXT document uploads
+- 🔍 **Comprehensive Assessment** - Multi-dimensional review covering structure, academic quality, methodology, ethics, etc.
+- 📊 **Detailed Reports** - Provides issue grading, specific suggestions, and improvement directions
+- ⚡ **Instant Feedback** - Quickly identify paper issues to accelerate publication process
+- 🔐 **Secure Login** - Built-in login system to protect user data security
 
-### `npm start`
+## 🎯 Review Dimensions
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Core Assessment Indicators
+1. **Structural Compliance** - Title, abstract, introduction, methods, results, discussion, conclusion, references
+2. **Academic Quality** - Research design, data analysis, logic, innovation
+3. **Methodology** - Scientific rigor of research methods, sample size, statistical methods
+4. **Ethical Compliance** - Ethics approval, informed consent, data privacy
+5. **Data Integrity** - Data adequacy and conclusion support
+6. **Language Quality** - Expression clarity, accuracy of professional terminology
+7. **Citation Standards** - Reference format and citation adequacy
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### Issue Severity Classification
+- 🔴 **Critical** - Must be fixed, otherwise unpublishable
+- 🟡 **Major** - Strongly recommended to fix, affects paper quality
+- 🔵 **Minor** - Suggested optimization to improve paper quality
 
-### `npm test`
+## 🚀 Quick Start
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Requirements
+- Node.js 16.0+
+- npm or yarn
 
-### `npm run build`
+### Installation & Running
+```bash
+# Clone the project
+git clone https://github.com/weilb/academic-editing.git
+cd medical-paper-reviewer
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+# Install dependencies
+npm install
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+# Start development server
+npm start
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Visit [http://localhost:3000](http://localhost:3000) to view the application
 
-### `npm run eject`
+### Usage Steps
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+#### 1. Login to System
+- Username: `zx`
+- Password: `123`
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+#### 2. Upload Paper
+- Click upload area or drag and drop files
+- Supported formats: PDF, Word, TXT
+- File size limit: 10MB
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+#### 3. Select AI Model
+- **Qwen Max** - Alibaba Cloud Tongyi Qianwen flagship model (Recommended)
+- **Gemini 2.0 Flash** - Google's latest generative AI (Requires VPN)
+- **Dual Model Comparison** - Use both models simultaneously for comparative results (Requires VPN)
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+#### 4. Start Review
+- Click "Start Review" button
+- Wait for AI analysis (usually takes 30-60 seconds)
 
-## Learn More
+#### 5. View Report
+- Overall score (0-100 points)
+- Issue statistics charts
+- Detailed issue list with modification suggestions
+- Improvement recommendations and best practices
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## 🛠️ Tech Stack
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Frontend Technologies
+- **Framework**: React 19 + TypeScript
+- **UI Library**: Ant Design 5.x
+- **Styling**: CSS3 + Medical journal professional design
+- **Build Tool**: Create React App
+
+### AI Integration
+- **Qwen Max**: Alibaba Cloud Tongyi Qianwen API
+- **Gemini**: Google Generative AI
+- **Document Parsing**: pdf-parse, mammoth
+
+### Core Features
+- Intelligent document parsing
+- Multi-model AI analysis
+- Issue matching algorithms
+- Visual report generation
+
+## 📝 Development Commands
+
+```bash
+# Install dependencies
+npm install
+
+# Start development server
+npm start
+
+# Build for production
+npm run build
+
+# Run tests
+npm test
+
+# Code linting
+npm run lint
+```
+
+## ⚠️ Important Notes
+
+- AI review is for reference only and cannot completely replace human expert review
+- Please ensure uploaded papers do not contain sensitive personal information
+- Gemini model requires stable international network connection
+- Recommend using Qwen model for more stable service
+
+## 🔮 Future Plans
+
+- [ ] Support for more AI models (Claude, GPT, etc.)
+- [ ] Export PDF/Word review reports
+- [ ] Paper version comparison functionality
+- [ ] Multi-language interface support
+- [ ] Journal template matching
+- [ ] Plagiarism detection integration
+- [ ] Batch review functionality
+- [ ] Open API interface
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
+
+## 🤝 Contributing
+
+Welcome to submit Issues and Pull Requests to improve the project!
+
+## 📞 Contact
+
+If you have questions or suggestions, please contact us through:
+- Submit GitHub Issues
+- Email project maintainers
+
+---
+
+**Medical Paper Intelligent Review** - Making academic publishing simpler and more efficient!
