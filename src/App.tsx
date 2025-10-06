@@ -4,6 +4,7 @@ import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
 import FileUpload from './components/FileUpload';
 import ModelSelector, { ModelType } from './components/ModelSelector';
 import ReviewReport from './components/ReviewReport';
+import Login from './components/Login';
 import { parseDocument } from './services/documentParser';
 import { reviewPaper as reviewWithGemini, ReviewResult } from './services/geminiService';
 import { reviewPaper as reviewWithQwen } from './services/qwenService';
@@ -18,12 +19,17 @@ export interface ComparisonResult {
 }
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [loading, setLoading] = useState(false);
   const [paperContent, setPaperContent] = useState<string>('');
-  const [selectedModel, setSelectedModel] = useState<ModelType>('gemini');
+  const [selectedModel, setSelectedModel] = useState<ModelType>('qwen');
   const [reviewResult, setReviewResult] = useState<ReviewResult | null>(null);
   const [comparisonResult, setComparisonResult] = useState<ComparisonResult | null>(null);
   const [leftPanelCollapsed, setLeftPanelCollapsed] = useState(false);
+
+  const handleLogin = () => {
+    setIsLoggedIn(true);
+  };
 
   const handleFileUpload = async (file: File) => {
     setLoading(true);
@@ -81,10 +87,15 @@ function App() {
     setPaperContent('');
     setReviewResult(null);
     setComparisonResult(null);
-    setSelectedModel('gemini');
+    setSelectedModel('qwen');
   };
 
   const hasResult = reviewResult || comparisonResult;
+
+  // 如果未登录，显示登录页面
+  if (!isLoggedIn) {
+    return <Login onLogin={handleLogin} />;
+  }
 
   return (
     <Layout className="medical-layout">
@@ -139,9 +150,9 @@ function App() {
           </svg>
           <div className="header-text">
             <Title level={2} className="header-title">
-              医学期刊论文智能审核系统
+              医学期刊智能审查
             </Title>
-            <Text className="header-subtitle">Medical Paper Intelligent Review System</Text>
+            <Text className="header-subtitle">Medical Paper Intelligent Review</Text>
           </div>
         </div>
       </Header>
@@ -235,7 +246,7 @@ function App() {
             <path d="M7 10L9 12L13 8" stroke="#d4537b" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
           <Text className="footer-text">
-            医学期刊论文智能审核系统 ©2025 · Powered by Advanced AI Models
+            医学期刊智能审查 ©2025 · Powered by Advanced AI Models
           </Text>
         </div>
       </Footer>

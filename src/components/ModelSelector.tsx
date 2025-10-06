@@ -36,22 +36,28 @@ const ModelSelector: React.FC<ModelSelectorProps> = ({ value, onChange }) => {
         style={{ width: '100%' }}
       >
         <Space direction="vertical" size="small" style={{ width: '100%' }}>
-          <Radio value="gemini" style={{ width: '100%', padding: '10px 12px', border: '1px solid #f0f0f0', borderRadius: 2, display: 'flex', alignItems: 'center' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', marginLeft: 8 }}>
-              <Text strong style={{ color: '#2c3e50', whiteSpace: 'nowrap' }}>Gemini 2.0 Flash</Text>
-              <Text type="secondary" style={{ fontSize: 11, whiteSpace: 'nowrap', flexShrink: 0 }}>Google 最新生成式AI</Text>
-            </div>
-          </Radio>
           <Radio value="qwen" style={{ width: '100%', padding: '10px 12px', border: '1px solid #f0f0f0', borderRadius: 2, display: 'flex', alignItems: 'center' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', marginLeft: 8 }}>
               <Text strong style={{ color: '#2c3e50', whiteSpace: 'nowrap' }}>Qwen Max</Text>
               <Text type="secondary" style={{ fontSize: 11, whiteSpace: 'nowrap', flexShrink: 0 }}>阿里云通义千问旗舰模型</Text>
             </div>
           </Radio>
+          <Radio value="gemini" style={{ width: '100%', padding: '10px 12px', border: '1px solid #f0f0f0', borderRadius: 2, display: 'flex', alignItems: 'center' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', marginLeft: 8 }}>
+              <Text strong style={{ color: '#2c3e50', whiteSpace: 'nowrap' }}>Gemini 2.0 Flash</Text>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                <Text type="secondary" style={{ fontSize: 11, whiteSpace: 'nowrap', flexShrink: 0 }}>Google 最新生成式AI</Text>
+                <Text style={{ fontSize: 10, color: '#ff4d4f', whiteSpace: 'nowrap', flexShrink: 0 }}>需要魔法</Text>
+              </div>
+            </div>
+          </Radio>
           <Radio value="both" style={{ width: '100%', padding: '10px 12px', border: '1px solid #f0f0f0', borderRadius: 2, display: 'flex', alignItems: 'center' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', marginLeft: 8 }}>
               <Text strong style={{ color: '#2c3e50', whiteSpace: 'nowrap' }}>双模型对比</Text>
-              <Text type="secondary" style={{ fontSize: 11, whiteSpace: 'nowrap', flexShrink: 0 }}>同时使用两个模型并对比结果</Text>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                <Text type="secondary" style={{ fontSize: 11, whiteSpace: 'nowrap', flexShrink: 0 }}>同时使用两个模型并对比结果</Text>
+                <Text style={{ fontSize: 10, color: '#ff4d4f', whiteSpace: 'nowrap', flexShrink: 0 }}>需要魔法</Text>
+              </div>
             </div>
           </Radio>
         </Space>
